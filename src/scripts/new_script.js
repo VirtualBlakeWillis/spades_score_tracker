@@ -191,12 +191,46 @@ function endRoundOverlay() {
                 </div>
             </div>
         </div>
-        <button class="primaryButton" onclick="endRoundOverlayOff();">
+        <button class="primaryButton" onclick="finishRound();">
             <p class="primaryButtonText">Submit</p>
         </button>
     </div>`;
     body.innerHTML += innerHtml;
     overlayOn('endRoundOverlay');
+}
+
+function finishRound() {
+    const teamOneId = 'teamOneround' + roundNumber;
+    const teamTwoId = 'teamTworound' + roundNumber;
+
+    let teamOneBids = document.querySelector(`#${teamOneId} .tricksWrapper .tricksBid`).innerHTML;
+    let teamTwoBids = document.querySelector(`#${teamTwoId} .tricksWrapper .tricksBid`).innerHTML;
+    let teamOneGots = document.querySelector(`#${teamOneId} .tricksWrapper .tricksGot`);
+    let teamTwoGots = document.querySelector(`#${teamTwoId} .tricksWrapper .tricksGot`);
+    teamOneBids = parseInt(teamOneBids);
+    teamTwoBids = parseInt(teamTwoBids);
+
+    if (isNaN(teamOneBids) || isNaN(teamTwoBids)) {
+        console.log('teamOneBids or teamTwoBids is not a number');
+        console.log(`teamOneBids: ${teamOneBids}. teamTwoBids: ${teamTwoBids}`);
+    }
+
+    const teamOneFinal = document.querySelector(`#teamOne${roundNumber}final`).value;
+    const teamTwoFinal = document.querySelector(`#teamTwo${roundNumber}final`).value;
+
+    if (teamOneFinal == "bid" || teamTwoFinal == "bid") {
+        console.log("missing Bids!");
+    } else {
+        console.log("updating total");
+        teamOneGots.innerHTML = teamOneFinal;
+        teamTwoGots.innerHTML = teamTwoFinal;
+        calculateNewScore('teamOne', teamOneBids, teamOneFinal);
+        calculateNewScore('teamTwo', teamTwoBids, teamTwoFinal);
+    }
+    overlayOff('endRoundOverlay');
+    let endRoundOverlayElement = document.querySelector('#endRoundOverlay');
+    endRoundOverlayElement.parentNode.removeChild(endRoundOverlayElement);
+    return;
 }
 
 function createScoreSheet() {
@@ -227,6 +261,7 @@ function createScoreSheet() {
     `
     /* removed from above for testing */
     body.innerHTML += innerHTML;
+    createNewRound();
 }
 
 /* need to change this functions name */
@@ -247,7 +282,9 @@ function createRound({teamName = 'teamOne', tricksBid = 0} = {}) {
                 <div class="sandbags">0</div>
             </div>
             <div class="tricksWrapper">
+                <div>Bids: </div>
                 <div class="tricksBid">${tricksBid}</div>
+                <div>Got: </div>
                 <div class="tricksGot">final</div>
             </div>
         </div>
@@ -261,7 +298,9 @@ function createRound({teamName = 'teamOne', tricksBid = 0} = {}) {
                 <div class="sandbags">0</div>
             </div>
             <div class="tricksWrapper">
+                <div>Bids: </div>
                 <div class="tricksBid">${tricksBid}</div>
+                <div>Got: </div>
                 <div class="tricksGot">final</div>
             </div>
         </div>
@@ -277,7 +316,7 @@ function createNewRound() {
     createRound({teamName: 'teamTwo', tricksBid: teamTwoTricks});
 
     /* calculate new score */
-    calculateNewScore({teamName: 'teamOne'});
+    // calculateNewScore({teamName: 'teamOne'});
     
 
     /* remove overlay */
@@ -287,41 +326,35 @@ function createNewRound() {
 }
 
 
-function calculateNewScore({teamName = 'unknown'}) {
-    if (roundNumber == 1) {
-        /* first round, scores will be 0 */
-        return
-    }
-    if (teamName == 'unknown') {
-        console.log('error in calculateNewScore, teamName is unknown');
-        alert('error in calculateNewScore, teamName is unknown');
-        return;
-    }
-
+function calculateNewScore(teamName, tricksBid, tricksGot) {
 
     const roundId = teamName + 'round' + roundNumber;
-    const prevRoundId = teamName + 'round' + (roundNumber - 1);
 
-    const bids = document.querySelector(`#${roundId} .tricksBid`).value;
-    const gots = document.querySelector(`#${roundId} .tricksGot`).value;
-
-    const prevScoreDiv = document.querySelector(`#${prevRoundId} .score`);
     const newScoreDiv = document.querySelector(`#${roundId} .score`);
 
-    const prevScore = parseInt(prevScoreDiv.innerHTML);
-
+    let prevScore;
     let newScore;
+    if (roundNumber > 1) {
+        console.log('round is greater than 1')
+        const prevRoundId = teamName + 'round' + (roundNumber - 1);
+        const prevScoreDiv = document.querySelector(`#${prevRoundId} .score`);
+        prevScore = parseInt(prevScoreDiv.innerHTML);
+    } else {
+        prevScore = 0;
 
-    /* Verify values are numbers */
-    if (isNaN(bids) || isNaN(gots) || isNaN(prevScore)) {
-        console.log("error retrieving values");
-        console.log('tricksBid: ' + tricksBid);
-        console.log('tricksGot: ' + tricksGot);
-        console.log('prevScore: ' + prevScore);
-        return;
     }
 
-    if (gots >= bids) {
+    /* Verify values are numbers */
+    // if (isNaN(bids) || isNaN(gots) || isNaN(prevScore)) {
+    //     console.log("error retrieving values");
+    //     console.log('tricksBid: ' + tricksBid);
+    //     console.log('tricksGot: ' + tricksGot);
+    //     console.log('prevScore: ' + prevScore);
+    //     return;
+    // }
+
+    console.log('team got: ' + tricksGot);
+    if (tricksGot >= tricksBid) {
         /* Got required tricks */
         newScore = prevScore + (tricksGot * 10);
         console.log('tricksGotten >= tricksBid');
