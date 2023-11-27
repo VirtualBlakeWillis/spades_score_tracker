@@ -6,7 +6,14 @@
 
 let affectedByOverlay = ["teamNameMain", "score", "divider"]
 let elements = [];
+let roundNumber = 0;
 
+let teamNameOne = "teamOne";
+let teamNameTwo = "teamTwo";
+
+
+
+/* Toggling Overlay */
 function overlayOn(overlayId) {
     document.getElementById(overlayId).style.display = "block";
     for (elements in affectedByOverlay) {
@@ -14,7 +21,6 @@ function overlayOn(overlayId) {
         for (x of elements) { x.style.opacity = "0.5"; }
     }
 }
-
 function overlayOff(overlayId) {
     document.getElementById(overlayId).style.display = "none";
     for (elements in affectedByOverlay) {
@@ -25,7 +31,7 @@ function overlayOff(overlayId) {
 
 
 
-/* Create Bids Input */
+/* creating and updating bids */
 function createEnterBids(teamName, roundNumber, bidNumber) {
     const bidId = teamName + roundNumber + bidNumber;
     const bid = `
@@ -73,11 +79,32 @@ function createEnterBids(teamName, roundNumber, bidNumber) {
       console.log(bidOne, bidTwo);
       return bidOne;
   }
+  function createBidsFinal(teamName, roundNumber) {
+    const bidId = teamName + roundNumber + 'final';
+    const bid = `
+    <select class="bidInput" id="${bidId}">
+        <option selected>bid</option>
+        <option value="0">nil</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+    </select>
+    `
+    return bid;
+  }
 
 
 
 /* New Round Overlay */
-let roundNumber = 0;
 function newRoundOverlay({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'} = {}) {
     roundNumber++; /* increment round number */
   
@@ -123,10 +150,56 @@ function newRoundOverlay({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'} = {}
     b2.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
     b3.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
     b4.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
-  }
+}
 
+function endRoundOverlay() {
+    const body = document.querySelector("body");
 
-function createScoreSheet({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'}) {
+    const teamOneId = 'teamOneround' + roundNumber;
+    const teamTwoId = 'teamTworound' + roundNumber;
+
+    console.log('teamOneId: ' + teamOneId);
+    let teamOneBids = document.querySelector(`#${teamOneId} .tricksWrapper .tricksBid`).innerHTML;
+    let teamTwoBids = document.querySelector(`#${teamTwoId} .tricksWrapper .tricksBid`).innerHTML;
+    teamOneBids = parseInt(teamOneBids);
+    teamTwoBids = parseInt(teamTwoBids);
+
+    if (isNaN(teamOneBids) || isNaN(teamTwoBids)) {
+        console.log('teamOneBids or teamTwoBids is not a number');
+        console.log(`teamOneBids: ${teamOneBids}. teamTwoBids: ${teamTwoBids}`);
+    }
+
+    const innerHtml = `
+    <div id="endRoundOverlay">
+        <div class="overlayWrapper">
+            <div class="scoreWrapper">
+                <h1 class="teamName teamOneName">${teamNameOne}</h1>
+                <div class="inputWrapper">
+                    <div class="bidsPlaced">${teamOneBids}</div>
+                    <div class="bidsFinal">
+                        ${createBidsFinal('teamOne', roundNumber)}
+                    </div>
+                </div>
+            </div>
+            <div class="scoreWrapper">
+                <h1 class="teamName teamTwoName">${teamNameTwo}</h1>
+                <div class="inputWrapper">
+                    <div class="bidsPlaced">${teamTwoBids}</div>
+                    <div class="bidsFinal">
+                    ${createBidsFinal('teamTwo', roundNumber)}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="primaryButton" onclick="endRoundOverlayOff();">
+            <p class="primaryButtonText">Submit</p>
+        </button>
+    </div>`;
+    body.innerHTML += innerHtml;
+    overlayOn('endRoundOverlay');
+}
+
+function createScoreSheet() {
 
     const body = document.querySelector("body");
 
@@ -136,24 +209,23 @@ function createScoreSheet({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'}) {
             <div class="teamWrapper" id="teamOne">
                 <h1 class="teamNameMain teamName">${teamNameOne}</h1>
                 <div class="teamDivider divider"></div>
-                <h2 class="score">0</h2>
             </div>
             <div class="divider" style="border-left:5px dashed #000;height:300px; "></div>
             <div class="teamWrapper" id="teamTwo">
                 <h1 class="teamNameMain teamName">${teamNameTwo}</h1>
                 <div class="teamDivider divider"></div>
-                <h2 class="score">0
                 </h2>
             </div>
         </div>
         <button class="primaryButton" onclick="newRoundOverlay({teamNameOne: '${teamNameOne}', teamNameTwo: '${teamNameTwo}'});">
             <p class="primaryButtonText">New Round</p>
         </button>
-        <button class="secondaryButton" onclick="createRound({roundNumber: 0});">
-            <p class="secondaryButtonText">Edit Bids</p>
+        <button class="secondaryButton" onclick="endRoundOverlay({teamNameOne: 'teamOne', teamNameTwo: 'teamTwo'});">
+        <p class="secondaryButtonText">Edit Bids</p>
         </button>
     </div>
     `
+    /* removed from above for testing */
     body.innerHTML += innerHTML;
 }
 
@@ -203,33 +275,45 @@ function createNewRound() {
     let teamTwoTricks = document.querySelector(`#teamTwo${roundNumber}total`).innerHTML;
     createRound({teamName: 'teamOne', tricksBid: teamOneTricks});
     createRound({teamName: 'teamTwo', tricksBid: teamTwoTricks});
+
+    /* calculate new score */
+    calculateNewScore({teamName: 'teamOne'});
+    
+
+    /* remove overlay */
     overlayOff('newRoundOverlay');
+    let newRoundOverlayElement = document.querySelector('#newRoundOverlay');
+    newRoundOverlayElement.parentNode.removeChild(newRoundOverlayElement);
 }
 
 
-function calculateNewScore({teamName = 'unknown', roundNumber = null}) {
-    if (roundNumber == null || roundNumber == 0) {
-        console.log('roundNumber not defined or zero');
+function calculateNewScore({teamName = 'unknown'}) {
+    if (roundNumber == 1) {
+        /* first round, scores will be 0 */
+        return
+    }
+    if (teamName == 'unknown') {
+        console.log('error in calculateNewScore, teamName is unknown');
+        alert('error in calculateNewScore, teamName is unknown');
         return;
     }
 
+
     const roundId = teamName + 'round' + roundNumber;
     const prevRoundId = teamName + 'round' + (roundNumber - 1);
-    const tricksBid = document.querySelector(`#${roundId} .tricksBid`).value;
-    const tricksGot = document.querySelector(`#${roundId} .tricksGot`).value;
-    const sandbagsDiv = document.querySelector(`#${roundId} .sandbags`);
 
-    const prevSandbags = document.querySelector(`#${prevRoundId} .sandbags`).innerHTML;
+    const bids = document.querySelector(`#${roundId} .tricksBid`).value;
+    const gots = document.querySelector(`#${roundId} .tricksGot`).value;
+
     const prevScoreDiv = document.querySelector(`#${prevRoundId} .score`);
     const newScoreDiv = document.querySelector(`#${roundId} .score`);
-    let score = 0;
-    let sandbags = 0;
 
     const prevScore = parseInt(prevScoreDiv.innerHTML);
 
+    let newScore;
 
     /* Verify values are numbers */
-    if (isNaN(tricksBid) || isNaN(tricksGot) || isNaN(prevScore)) {
+    if (isNaN(bids) || isNaN(gots) || isNaN(prevScore)) {
         console.log("error retrieving values");
         console.log('tricksBid: ' + tricksBid);
         console.log('tricksGot: ' + tricksGot);
@@ -237,42 +321,33 @@ function calculateNewScore({teamName = 'unknown', roundNumber = null}) {
         return;
     }
 
-    if (checkTricksGotten(tricksGot, tricksBid)) {
+    if (gots >= bids) {
         /* Got required tricks */
-        sandbags = tricksGot - tricksBid;
-        score = prevScore + (tricksGot * 10) + sandbags;
+        newScore = prevScore + (tricksGot * 10);
         console.log('tricksGotten >= tricksBid');
-        console.log('score: ' + score);
-        newScoreDiv.innerHTML = score;
-        sandbagsDiv.innerHTML = sandbags;
-
+        console.log('score: ' + newScore);
+        newScoreDiv.innerHTML = newScore;
 
     } else {
         /* Didn't get required tricks */
-        score = prevScore - (tricksBid * 10);
+        newScore = prevScore - (tricksBid * 10);
         console.log('tricksGotten < tricksBid');
-        console.log('score: ' + score);
-        newScoreDiv.innerHTML = score;
+        console.log('score: ' + newScore);
+        newScoreDiv.innerHTML = newScore;
     }
-    document.querySelector(`#${roundId} .score`).innerHTML = score;
 }
 
-function checkTricksGotten(tricksGot, tricksBid) {
-    if (tricksGot >= tricksBid) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 
 
 const start = function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const team1 = urlParams.get('team1');
-    const team2 = urlParams.get('team2');
     const targetScore = urlParams.get('targetScore');
-    console.log('creating score sheet');
-    createScoreSheet({teamNameOne: team1, teamNameTwo: team2});
+
+    /* update team names globally */
+    teamNameOne = urlParams.get('team1');
+    teamNameTwo = urlParams.get('team2');
+
+    createScoreSheet();
 }
 start();
