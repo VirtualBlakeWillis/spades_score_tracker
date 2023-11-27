@@ -4,14 +4,18 @@
 
 /* popup testing functions */
 
-let affectedByOverlay = ["teamNameMain", "score", "divider"]
-let elements = [];
+
 let roundNumber = 0;
+const maxScore = 500;
+const maxBags = 10;
+const sandbagPenalty = -100;
 
 let teamNameOne = "teamOne";
 let teamNameTwo = "teamTwo";
 
 
+let affectedByOverlay = ["teamNameMain", "score", "divider"]
+let elements = [];
 
 /* Toggling Overlay */
 function overlayOn(overlayId) {
@@ -105,8 +109,7 @@ function createEnterBids(teamName, roundNumber, bidNumber) {
 
 
 /* New Round Overlay */
-function newRoundOverlay({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'} = {}) {
-    roundNumber++; /* increment round number */
+function newRoundOverlay() {
   
     let body = document.querySelector("body");
     let innerHtml = `
@@ -133,7 +136,7 @@ function newRoundOverlay({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'} = {}
                 </div>
             </div>
         </div>
-        <button class="primaryButton" onclick="createNewRound();">
+        <button class="primaryButton" onclick="submitBids();">
             <p class="primaryButtonText">Submit</p>
         </button>
     </div>
@@ -150,6 +153,27 @@ function newRoundOverlay({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'} = {}
     b2.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
     b3.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
     b4.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
+}
+
+function submitBids() {
+    let teamOneTricks = document.querySelector(`#teamOne${roundNumber}total`).innerHTML;
+    let teamTwoTricks = document.querySelector(`#teamTwo${roundNumber}total`).innerHTML;
+    teamOneTricks = parseInt(teamOneTricks);
+    teamTwoTricks = parseInt(teamTwoTricks);
+
+    let teamOneBidsDiv = document.querySelector(`#teamOneround${roundNumber} .tricksWrapper .tricksBid`);
+    let teamTwoBidsDiv = document.querySelector(`#teamTworound${roundNumber} .tricksWrapper .tricksBid`);
+
+    teamOneBidsDiv.innerHTML = teamOneTricks;
+    teamTwoBidsDiv.innerHTML = teamTwoTricks;
+
+    /* remove overlay */
+    overlayOff('newRoundOverlay');
+    let newRoundOverlayElement = document.querySelector('#newRoundOverlay');
+    newRoundOverlayElement.parentNode.removeChild(newRoundOverlayElement);
+
+
+
 }
 
 function endRoundOverlay() {
@@ -224,9 +248,13 @@ function finishRound() {
         console.log("updating total");
         teamOneGots.innerHTML = teamOneFinal;
         teamTwoGots.innerHTML = teamTwoFinal;
+        createNewRound();
+        console.log('teamOneFinal: ' + teamOneFinal);
         calculateNewScore('teamOne', teamOneBids, teamOneFinal);
         calculateNewScore('teamTwo', teamTwoBids, teamTwoFinal);
     }
+
+    /* remove overlay */
     overlayOff('endRoundOverlay');
     let endRoundOverlayElement = document.querySelector('#endRoundOverlay');
     endRoundOverlayElement.parentNode.removeChild(endRoundOverlayElement);
@@ -251,7 +279,7 @@ function createScoreSheet() {
                 </h2>
             </div>
         </div>
-        <button class="primaryButton" onclick="newRoundOverlay({teamNameOne: '${teamNameOne}', teamNameTwo: '${teamNameTwo}'});">
+        <button class="primaryButton" onclick="newRoundOverlay();">
             <p class="primaryButtonText">New Round</p>
         </button>
         <button class="secondaryButton" onclick="endRoundOverlay({teamNameOne: 'teamOne', teamNameTwo: 'teamTwo'});">
@@ -265,12 +293,8 @@ function createScoreSheet() {
 }
 
 /* need to change this functions name */
-function createRound({teamName = 'teamOne', tricksBid = 0} = {}) {
-    if (tricksBid <= 0 || isNaN(tricksBid)) {
-        console.log('incorrect tricksBid value');
-        alert('incorrect tricksBid value');
-        return;
-    }
+function createRound(teamName) {
+
 
     const roundId = teamName + 'round' + roundNumber;
     let html = '';
@@ -282,10 +306,10 @@ function createRound({teamName = 'teamOne', tricksBid = 0} = {}) {
                 <div class="sandbags">0</div>
             </div>
             <div class="tricksWrapper">
-                <div>Bids: </div>
-                <div class="tricksBid">${tricksBid}</div>
+                <div>Bid: </div>
+                <div class="tricksBid">0</div>
                 <div>Got: </div>
-                <div class="tricksGot">final</div>
+                <div class="tricksGot">0</div>
             </div>
         </div>
         `;
@@ -298,10 +322,10 @@ function createRound({teamName = 'teamOne', tricksBid = 0} = {}) {
                 <div class="sandbags">0</div>
             </div>
             <div class="tricksWrapper">
-                <div>Bids: </div>
-                <div class="tricksBid">${tricksBid}</div>
+                <div>Bid: </div>
+                <div class="tricksBid">0</div>
                 <div>Got: </div>
-                <div class="tricksGot">final</div>
+                <div class="tricksGot">0</div>
             </div>
         </div>
         `;
@@ -310,19 +334,20 @@ function createRound({teamName = 'teamOne', tricksBid = 0} = {}) {
     teamWrapper.innerHTML += html;
 }
 function createNewRound() {
-    let teamOneTricks = document.querySelector(`#teamOne${roundNumber}total`).innerHTML;
-    let teamTwoTricks = document.querySelector(`#teamTwo${roundNumber}total`).innerHTML;
-    createRound({teamName: 'teamOne', tricksBid: teamOneTricks});
-    createRound({teamName: 'teamTwo', tricksBid: teamTwoTricks});
+    roundNumber++; /* increment round number */
+
+
+    createRound('teamOne');
+    createRound('teamTwo');
 
     /* calculate new score */
     // calculateNewScore({teamName: 'teamOne'});
     
 
     /* remove overlay */
-    overlayOff('newRoundOverlay');
-    let newRoundOverlayElement = document.querySelector('#newRoundOverlay');
-    newRoundOverlayElement.parentNode.removeChild(newRoundOverlayElement);
+    // overlayOff('newRoundOverlay');
+    // let newRoundOverlayElement = document.querySelector('#newRoundOverlay');
+    // newRoundOverlayElement.parentNode.removeChild(newRoundOverlayElement);
 }
 
 
@@ -331,17 +356,22 @@ function calculateNewScore(teamName, tricksBid, tricksGot) {
     const roundId = teamName + 'round' + roundNumber;
 
     const newScoreDiv = document.querySelector(`#${roundId} .score`);
+    const newSandbagsDiv = document.querySelector(`#${roundId} .sandbags`);
 
+    let prevSandbags;
     let prevScore;
     let newScore;
+    let newSandbags;
     if (roundNumber > 1) {
         console.log('round is greater than 1')
         const prevRoundId = teamName + 'round' + (roundNumber - 1);
         const prevScoreDiv = document.querySelector(`#${prevRoundId} .score`);
+        const prevSandbagsDiv = document.querySelector(`#${prevRoundId} .sandbags`);
         prevScore = parseInt(prevScoreDiv.innerHTML);
+        prevSandbags = parseInt(prevSandbagsDiv.innerHTML);
     } else {
         prevScore = 0;
-
+        prevSandbags = 0;
     }
 
     /* Verify values are numbers */
@@ -356,9 +386,16 @@ function calculateNewScore(teamName, tricksBid, tricksGot) {
     console.log('team got: ' + tricksGot);
     if (tricksGot >= tricksBid) {
         /* Got required tricks */
-        newScore = prevScore + (tricksGot * 10);
+        newScore = prevScore + (tricksBid * 10) + (tricksGot - tricksBid);
         console.log('tricksGotten >= tricksBid');
         console.log('score: ' + newScore);
+        newSandbags = prevSandbags + (tricksGot - tricksBid);
+        if (newSandbags >= maxBags) {
+            newScore = newScore + sandbagPenalty;
+            newSandbags = newSandbags - maxBags;
+        } else {
+        newSandbagsDiv.innerHTML = prevSandbags + (tricksGot - tricksBid);
+        }
         newScoreDiv.innerHTML = newScore;
 
     } else {
@@ -367,6 +404,7 @@ function calculateNewScore(teamName, tricksBid, tricksGot) {
         console.log('tricksGotten < tricksBid');
         console.log('score: ' + newScore);
         newScoreDiv.innerHTML = newScore;
+        newSandbagsDiv.innerHTML = prevSandbags;
     }
 }
 

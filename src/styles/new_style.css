@@ -20,7 +20,7 @@ body {
   display: flex;
   justify-content: center;
   margin: 50px auto;
-  height: 55vh;
+  height: 100%;
   box-sizing: border-box;
 }
 .teamWrapper{
