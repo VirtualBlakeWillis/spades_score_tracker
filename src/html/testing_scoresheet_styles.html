@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/new_style.css">
+    <script defer src="../scripts/new_script.js"></script>
+</head>
+<body>
+    <div id="scoreSheet">
+        <div id="scoreWrapper">
+            <div class="teamWrapper" id="teamOne">
+                <h1 class="teamNameMain teamName">winners</h1>
+                <div class="teamDivider divider"></div>
+                <div class="scoreAndSandbagsWrapper">
+                    <h2 class="score">0</h2>
+                    <div class="sandbags">0</div>
+                </div>
+                <div class="tricksWrapper">
+                    <div class="tricksBid">bids</div>
+                    <div class="tricksGot">final</div>
+                </div>
+                <div class="teamDivider divider"></div>
+            </div>
+            <div class="divider" style="border-left:5px dashed #000;height:300px; "></div>
+            <div class="teamWrapper" id="teamTwo">
+                <h1 class="teamNameMain teamName">bob</h1>
+                <div class="teamDivider divider"></div>
+
+                <div class="teamRoundWrapper">
+                    <h2 class="score">0</h2>
+                    <div class="tricksWrapper">
+                        <div class="tricksBid">bids</div>
+                        <div class="tricksGot">final</div>
+                    </div>
+                 </div>
+
+            </div>
+        </div>
+        <button class="primaryButton" onclick="newRoundOverlay({teamNameOne: '${teamNameOne}', teamNameTwo: '${teamNameTwo}'});">
+            <p class="primaryButtonText">New Round</p>
+        </button>
+        <button class="secondaryButton" onclick="createRound({roundNumber: 0});">
+            <p class="secondaryButtonText">Edit Bids</p>
+        </button>
+    </div>
+</body>
+</html>

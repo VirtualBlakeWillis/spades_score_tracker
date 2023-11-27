@@ -1,0 +1,34 @@
+.teams {
+    display: flex;
+    flex-direction: row;
+    margin: 40px 40px 0 40px;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.scoring {
+    display: block;
+}
+.round {
+    display: flex;
+    flex-direction: row;
+    margin: 50px;
+}
+.bids {
+    display: flex;
+    flex-direction: column;
+}
+.team1, .team2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 40px;
+}
+.team2 {
+    flex-direction: row-reverse;
+}
+.score {
+    margin: 40px;
+}

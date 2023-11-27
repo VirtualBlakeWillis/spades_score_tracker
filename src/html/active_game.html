@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/new_style.css">
+    <script defer src="../scripts/new_script.js"></script>
+</head>
+<body>
+    <!-- <script>
+        // consle.log on page load
+        addEventListener("load", function() {
+            console.log("Page loaded.");
+            console.log(window.location.search);
+
+            const urlParams = new URLSearchParams(window.location.search);
+
+            newGame(urlParams);
+        });
+
+        /* Start a Game Function */
+    function newGame(urlParams) {
+      /* get values from inputs */
+        const team1 = urlParams.get('team1');
+        const team2 = urlParams.get('team2');
+        const targetScore = urlParams.get('targetScore');
+
+
+      let body = document.querySelector("body");
+
+    //   /* update team names to match input */
+    //   let team1NameElements = document.getElementsByClassName("teamNameOne");
+    //   console.log(team1NameElements);
+    //   let team2NameElements = document.getElementsByClassName("teamNameTwo");
+
+    //     for (x of team1NameElements) { x.innerHTML = team1; }
+    //     for (x of team2NameElements) { x.innerHTML = team2; }
+
+      console.log(team1, team2, targetScore);
+    }
+    </script> -->
+    <!-- new game -->
+    <!-- score sheet -->
+ 
+
+    <!-- end round overlay -->
+    <div id="endRoundOverlay">
+        <div class="overlayWrapper">
+            <div class="scoreWrapper">
+                <h1 class="teamName teamOneName">Team 1</h1>
+                <div class="inputWrapper">
+                    <div class="bidsPlaced">bds</div>
+                    <div class="bidsFinal">
+                        <p>Final</p>
+                    </div>
+                </div>
+            </div>
+            <div class="scoreWrapper">
+                <h1 class="teamName teamTwoName">Team 2</h1>
+ 
+            </div>
+        </div>
+        <button class="primaryButton" onclick="endRoundOverlayOff();">
+            <p class="primaryButtonText">Submit</p>
+        </button>
+    </div>
+
+</body>
+</html>

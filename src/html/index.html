@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="new_style.css">
+    <script defer src="new_script.js"></script>
+</head>
+<body>
+    <!-- new game -->
+    <h1>New Game!</h1>
+    <div>
+        <form onsubmit="newGame();">
+        <input type="text" id="team1" name="team1" placeholder="Team One" required>
+        <input type="text" id="team2" name="team2" placeholder="Team Two" required>
+        <div id="targetScoreWrapper">
+            <p style="display: inline-block;">Target Score:</p>
+            <input type="radio" id="300" name="targetScore" value="300">
+            <label for="300">300</label>
+            <input type="radio" id="500" name="targetScore" value="500">
+            <label for="500">500</label>
+        </div>
+
+        <input type="submit" value="Begin">
+        </form>
+    </div>
+
+    <!-- score sheet -->
+    <div id="scoreWrapper">
+        <div class="teamWrapper">
+            <h1 class="teamName teamNameMain">Team 1</h1>
+            <div class="teamDivider divider"></div>
+            <h2 class="score">0</h2>
+        </div>
+        <div class="divider" style="border-left:5px dashed #000;height:300px; "></div>
+        <div class="teamWrapper">
+            <h1 class="teamName teamNameMain">Team 2</h1>
+            <div class="teamDivider divider"></div>
+            <h2 class="score">0
+            </h2>
+        </div>
+    </div>
+    <button class="primaryButton" onclick="newRoundOverlay();">
+        <p class="primaryButtonText">New Round</p>
+    </button>
+    <button class="secondaryButton" onclick="endRoundOverlayOn();">
+        <p class="secondaryButtonText">Edit Bids</p>
+    </button>
+
+<!-- new round overlay -->
+    <!-- <div id="newRoundOverlay">
+        <div class="overlayWrapper">
+            <div class="scoreWrapper">
+                <h1 class="teamName">Team 1</h1>
+                <div class="bidsWrapper">
+                    <div class="inputWrapper">
+                        <select class="bidInput">
+                            <option selected>bid</option>
+                            <option value="0">nil</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                        </select>                        
+                        <div class="bidInput">0</div>
+                    </div>
+                    <div class="bidInputTotal">tot</div>
+                </div>
+            </div>
+            <div class="scoreWrapper">
+                <h1 class="teamName">Team 2</h1>
+                <div class="bidsWrapper" style="flex-direction: row-reverse;">
+                    <div class="inputWrapper">
+                        <div class="bidInput">0</div>
+                        <div class="bidInput">0</div>
+                    </div>
+                    <div class="bidInputTotal">tot</div>
+                </div>
+            </div>
+        </div>
+        <button class="primaryButton" onclick="off();">
+            <p class="primaryButtonText">Submit</p>
+        </button>
+    </div> -->
+
+    <!-- end round overlay -->
+    <div id="endRoundOverlay">
+        <div class="overlayWrapper">
+            <div class="scoreWrapper">
+                <h1 class="teamName">Team 1</h1>
+                <div class="inputWrapper">
+                    <div class="bidsPlaced">bds</div>
+                    <div class="bidsFinal">
+                        <p>Final</p>
+                    </div>
+                </div>
+            </div>
+            <div class="scoreWrapper">
+                <h1 class="teamName">Team 2</h1>
+ 
+            </div>
+        </div>
+        <button class="primaryButton" onclick="endRoundOverlayOff();">
+            <p class="primaryButtonText">Submit</p>
+        </button>
+    </div>
+
+    <!-- js functionality buttons -->
+    <!-- <button onclick="newRound();">New Round!</button> -->
+    <!-- <button onclick="roundEndScreen();">Finish Round</button> -->
+</body>
+<style>
+    /* old styling */
+    .bidsContainer {
+        height: 30vw;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        background-color: aqua;
+        position: fixed;
+        bottom: 0;
+        width: 80vw;
+        margin: 0 10vw;
+        padding: 20px;
+    }
+    .teamText {
+        display: flex;
+        flex-direction: row;
+    }
+    #teamText, #bidsWrapper {
+        width: 25%;
+        justify-content: space-between;
+    }
+
+    #bidsWrapper {
+        display: flex;
+        flex-direction: row;
+    }
+</style>
+</html>

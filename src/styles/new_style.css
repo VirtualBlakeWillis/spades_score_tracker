@@ -1,0 +1,207 @@
+:root {
+
+  --background-color: #F2F0F4;
+  --black: #050406;
+  --primary: #9DAC8B;
+  --secondary: #DEE8E2;
+  --accent: #7F9286;
+  --text-color: var(--black);
+  --text-overlay-active: rgba(5, 4, 6, 0.5);
+
+}
+
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+#scoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+  height: 55vh;
+  box-sizing: border-box;
+}
+.teamWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+.teamName {
+  padding: 20px 40px;
+  margin: 0;
+}
+.teamDivider {
+  border-top: 2px dashed var(--black);
+  width: 60%;
+}
+
+.score {
+  font-size: 2.5rem;
+  margin: 10px;
+}
+
+
+/* Buttons */
+.primaryButton {
+  background-color: var(--primary);
+  border: none;
+  border-radius: 15px;
+}
+.primaryButtonText {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  padding: 15px 25px;
+  margin: 0;
+  text-decoration: none;
+}
+
+.secondaryButton {
+  border: 1px solid var(--accent);
+  border-radius: 15px;
+}
+.secondaryButtonText {
+  color: var(--text-color);
+  font-size: 1rem;
+  padding: 15px 25px;
+  margin: 0;
+  text-decoration: none;
+}
+
+.primaryButton, .secondaryButton {
+  display: block;
+  position: relative;
+  width: 40%;
+  margin: 20px auto;
+  bottom: 0;
+}
+
+/* New Round Overlay */
+#overlayActive {
+  color: var(--text-overlay-active);
+  opacity: 0.5;
+}
+#newRoundOverlay, #endRoundOverlay{
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 65vh; /* Full height (cover the whole page) */
+  left: 0;
+  right: 0;
+  bottom: -20px;
+  background-color: var(--secondary); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+
+  border-radius: 7vw;
+}
+
+.overlayWrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px;
+}
+
+.bidsWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.bidInput {
+  margin: 20px;
+  padding: 2px 4px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+}
+
+.bidInputTotal {
+  font-size: 1.5rem;
+}
+
+select.bidInput {
+  font-size: 1rem;
+  padding: 0;
+  background-color: var(--secondary);
+
+}
+
+
+/* End Round Overlay */
+.bidsFinal p {
+  font-size: 1.5rem;
+  margin: 0;
+  opacity: 0.6;
+
+}
+.bidsPlaced {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+.bidsFinal p, .bidsPlaced {
+  padding: 5px 15px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+}
+
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+/* new game screen */
+
+
+.tricksWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.tricksBid {
+  font-size: 1.25rem;
+  padding: 6px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+}
+
+.tricksGot {
+  font-size: 1.25rem;
+  padding: 6px;
+  font-weight: bold;
+}
+
+.teamRoundWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.scoreAndSandbagsWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.sandbags {
+  font-size: 1.25rem;
+  background-color: var(--accent);
+  padding: 4px;
+  margin-top: 6px;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+}

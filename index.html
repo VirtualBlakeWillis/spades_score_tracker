@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spades Score Sheet</title>
+</head>
+<body>
+    <!-- new game -->
+    <h1>New Game!</h1>
+    <div>
+        <form action="./src/html/active_game.html" method="get">
+        <input type="text" id="team1" name="team1" placeholder="Team One" required>
+        <input type="text" id="team2" name="team2" placeholder="Team Two" required>
+        <div id="targetScoreWrapper">
+            <p style="display: inline-block;">Target Score:</p>
+            <input type="radio" id="300" name="targetScore" value="300">
+            <label for="300">300</label>
+            <input type="radio" id="500" name="targetScore" value="500">
+            <label for="500">500</label>
+        </div>
+
+        <input type="submit" value="Begin">
+        </form>
+    </div>
+</body>
+</html>
