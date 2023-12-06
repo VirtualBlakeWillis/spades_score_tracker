@@ -1,0 +1,46 @@
+:root {
+
+    --background-color: #F2F0F4;
+    --black: #050406;
+    --primary: #9DAC8B;
+    --secondary: #DEE8E2;
+    --accent: #7F9286;
+    --text-color: var(--black);
+    --text-overlay-active: rgba(5, 4, 6, 0.5);
+}
+  
+  
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Noto Sans", sans-serif;;
+}
+
+
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto;
+  height: 55vh;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+.primaryButton {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 15px;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    padding: 15px 25px;
+    margin: auto;
+    text-decoration: none;
+    align-self: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}

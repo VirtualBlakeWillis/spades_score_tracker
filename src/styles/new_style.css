@@ -7,7 +7,6 @@
   --accent: #7F9286;
   --text-color: var(--black);
   --text-overlay-active: rgba(5, 4, 6, 0.5);
-
 }
 
 
@@ -22,6 +21,7 @@ body {
   margin: 50px auto;
   height: 55vh;
   box-sizing: border-box;
+  overflow: scroll;
 }
 .teamWrapper{
   display: flex;
@@ -29,6 +29,15 @@ body {
   align-items: center;
   width: 40%;
 }
+.teamNameMain {
+  position: sticky;
+  top: 0;
+  background-color: var(--background-color);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .teamName {
   padding: 20px 40px;
   margin: 0;
@@ -45,6 +54,7 @@ body {
 
 
 /* Buttons */
+
 .primaryButton {
   background-color: var(--primary);
   border: none;
