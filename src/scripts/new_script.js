@@ -18,7 +18,7 @@ function overlayOn(overlayId) {
     document.getElementById(overlayId).style.display = "block";
     for (elements in affectedByOverlay) {
         elements = document.getElementsByClassName(affectedByOverlay[elements]);
-        for (x of elements) { x.style.opacity = "0.5"; }
+        for ( const x of elements) { x.style.opacity = "0.5"; }
     }
 }
 function overlayOff(overlayId) {
@@ -425,4 +425,6 @@ const start = function() {
 
     createScoreSheet();
 }
-start();
+// start();
+
+export {newRoundOverlay, endRoundOverlay}

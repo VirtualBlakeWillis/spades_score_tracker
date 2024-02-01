@@ -52,6 +52,9 @@ body {
   margin: 10px;
 }
 
+#scoreSheet {
+  display: none;
+}
 
 /* Buttons */
 
