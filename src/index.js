@@ -1,14 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { store } from './App/store';
+import { Provider } from 'react-redux';
+
 import NewGame from './NewGame/NewGame';
 import ScoreSheet from './ScoreSheet/ScoreSheet';
+import NewRoundOverlay from './NewRoundOverlay/NewRoundOverlay';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <NewGame />
     <ScoreSheet />
-  </React.StrictMode>
+    <NewRoundOverlay />
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

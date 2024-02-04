@@ -1,15 +1,33 @@
 import './NewGame.css';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setTargetScore, setSandbagPenalty, setTeamName } from '../reducers/newGameSlice';
+import { ScoreSheet } from '../ScoreSheet/ScoreSheet';
+
 
 const NewGame = () => {
+  const dispatch = useDispatch();
   function handleSubmit(event) {
     event.preventDefault()
+    const team1 = event.target.team1.value;
+    const team2 = event.target.team2.value;
+    const targetScore = event.target.targetScore.value;
+    const sandbagPenalty = event.target.sandbagPenalty.value;
+
+    dispatch(setTargetScore(targetScore));
+    dispatch(setSandbagPenalty(sandbagPenalty));
+
+    dispatch(setTeamName({team: "team1", name: team1}));
+    dispatch(setTeamName({team: "team2", name: team2}));
+
     const scoreSheet = document.getElementById('scoreSheet');
-    console.log(scoreSheet);
     scoreSheet.style.display = "block";
+    const newGame = document.getElementById('newGame');
+    newGame.style.display = "none";
     
   }
   return (
-    <div className="sectionWrapper">
+    <div className="sectionWrapper" id="newGame">
       <h1>New Game!</h1>
       <form onSubmit={handleSubmit} method="get">
           <div>
