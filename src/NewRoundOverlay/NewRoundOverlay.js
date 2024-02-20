@@ -1,51 +1,3 @@
-/*
-function newRoundOverlay({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'} = {}) {
-    roundNumber++; 
-  
-    let body = document.querySelector("body");
-    let innerHtml = `
-    <div id="newRoundOverlay">
-        <div class="overlayWrapper">
-            <div class="scoreWrapper">
-                <h1 class="teamName teamNameOne">${teamNameOne}</h1>
-                <div class="bidsWrapper">
-                    <div class="inputWrapper">
-                        ${createEnterBids('teamOne', roundNumber, 1)}                     
-                        ${createEnterBids('teamOne', roundNumber, 2)}                     
-                    </div>
-                    ${createBidsTotal('teamOne', roundNumber)}
-                </div>
-            </div>
-            <div class="scoreWrapper">
-                <h1 class="teamName teamNameTwo">${teamNameTwo}</h1>
-                <div class="bidsWrapper" style="flex-direction: row-reverse;">
-                    <div class="inputWrapper">
-                    ${createEnterBids('teamTwo', roundNumber, 1)}                     
-                    ${createEnterBids('teamTwo', roundNumber, 2)}  
-                    </div>
-                    ${createBidsTotal('teamTwo', roundNumber)}
-                </div>
-            </div>
-        </div>
-        <button class="primaryButton" onclick="createNewRound();">
-            <p class="primaryButtonText">Submit</p>
-        </button>
-    </div>
-    `
-    body.innerHTML += innerHtml;
-    overlayOn('newRoundOverlay');
-  
-    let b1 = document.querySelector(`#teamOne${roundNumber}1`);
-    let b2 = document.querySelector(`#teamOne${roundNumber}2`);
-    let b3 = document.querySelector(`#teamTwo${roundNumber}1`);
-    let b4 = document.querySelector(`#teamTwo${roundNumber}2`);
-  
-    b1.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
-    b2.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
-    b3.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
-    b4.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
-}
-*/
 import { useSelector, useDispatch } from "react-redux";
 import { createNewRound } from "../reducers/newGameSlice";
 import CreateEnterBids from "../EnterBids/EnterBids";
@@ -57,6 +9,18 @@ const NewRoundOverlay = () => {
     const teamNameOne = useSelector(state => state.newGame.teams.team1.name);
     const teamNameTwo = useSelector(state => state.newGame.teams.team2.name);
     const roundNumber = useSelector(state => state.newGame.rounds.currentRound);
+
+    function handleClick(e) {
+        e.preventDefault();
+        const team1Total = document.getElementById(`${teamNameOne}-${roundNumber}-total`).innerHTML
+        if (team1Total !== "total") {
+            
+        }
+        console.log("team 1 total: "+ team1Total);
+
+        // document.getElementById('newRoundOverlay').style.display = 'none';
+        // dispatch(createNewRound())
+    }
 
 
     return (
@@ -83,7 +47,7 @@ const NewRoundOverlay = () => {
                 </div>
             </div>
         </div>
-        <button className="primaryButton" /*onClick="createNewRound();" */>
+        <button className="primaryButton" onClick={handleClick}>
             <p className="primaryButtonText">Submit</p>
         </button>
     </div>

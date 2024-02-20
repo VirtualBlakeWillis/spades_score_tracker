@@ -11,6 +11,7 @@ function updateBidsTotal(teamName, roundNumber) {
 
     let bidOne = document.querySelector(`#${bidOneId}`);
     let bidTwo = document.querySelector(`#${bidTwoId}`);
+
     if (bidOne == null || bidTwo == null) {
       console.log("missing Bids!");
       return
@@ -19,14 +20,14 @@ function updateBidsTotal(teamName, roundNumber) {
     bidTwo = bidTwo.value;
     if (bidOne == "bid" || bidTwo == "bid") {
       console.log("missing Bids!");
+      return
     } else {
       console.log("updating total");
       const bidTotal = parseInt(bidOne) + parseInt(bidTwo);
-      useDispatch(setTotalBids({ team: teamName, bid: bidTotal }));
         let total = document.querySelector(`#${teamName}-${roundNumber}-total`);
         total.innerHTML = bidTotal;
+        return bidTotal;
     }
-    return bidTotal;
 }
 
 

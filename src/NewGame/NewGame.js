@@ -1,7 +1,7 @@
 import './NewGame.css';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTargetScore, setSandbagPenalty, setTeamName } from '../reducers/newGameSlice';
+import { setTargetScore, setSandbagPenalty, setTeamName, setGame } from '../reducers/newGameSlice';
 import { ScoreSheet } from '../ScoreSheet/ScoreSheet';
 
 
@@ -13,18 +13,18 @@ const NewGame = () => {
     const team2 = event.target.team2.value;
     const targetScore = event.target.targetScore.value;
     const sandbagPenalty = event.target.sandbagPenalty.value;
-
-    dispatch(setTargetScore(targetScore));
-    dispatch(setSandbagPenalty(sandbagPenalty));
-
-    dispatch(setTeamName({team: "team1", name: team1}));
-    dispatch(setTeamName({team: "team2", name: team2}));
+    const payload = {
+      targetScore,
+      sandbagPenalty,
+      team1,
+      team2,
+    }
+    dispatch(setGame(payload));
 
     const scoreSheet = document.getElementById('scoreSheet');
     scoreSheet.style.display = "block";
     const newGame = document.getElementById('newGame');
     newGame.style.display = "none";
-    
   }
   return (
     <div className="sectionWrapper" id="newGame">

@@ -20,7 +20,7 @@ const initialState = {
       }
     },
     rounds: {
-        currentRound: 1,
+        currentRound: 0,
         roundList: [{
             roundNumber: 1,
             bids: {
@@ -59,36 +59,44 @@ export const newGameSlice = createSlice({
         setTeamName: (state, action) => {
             state.teams[action.payload.team].name = action.payload.name;
         },
+        setGame: (state, action) => {
+            state.rules.targetScore = action.payload.targetScore;
+            state.rules.sandbagPenalty = action.payload.sandbagPenalty;
+            state.teams.team1.name = action.payload.team1;
+            state.teams.team2.name = action.payload.team2;
+        },
 
         createNewRound: (state) => {
             state.rounds.currentRound++;
-            state.rounds.roundList.push({
-                roundNumber: state.rounds.currentRound,
-                bids: {
-                    team1: {
-                        bid: 0,
-                        got: 0,
-                        nil: {
-                            bid: false,
-                            got: false,
-                        }
-                    },
-                    team2: {
-                        bid: 0,
-                        got: 0,
-                        nil: {
-                            bid: false,
-                            got: false,
+            if (state.rounds.currentRound > 1) {
+                state.rounds.roundList.push({
+                    roundNumber: state.rounds.currentRound,
+                    bids: {
+                        team1: {
+                            bid: 0,
+                            got: 0,
+                            nil: {
+                                bid: false,
+                                got: false,
+                            }
+                        },
+                        team2: {
+                            bid: 0,
+                            got: 0,
+                            nil: {
+                                bid: false,
+                                got: false,
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         },
         setTotalBids: (state, action) => {
-            state.rounds.roundList[state.rounds.currentRound - 1].bids[action.payload.team].bid = action.payload.bid;
+            state.rounds.roundList[state.rounds.currentRound].bids[action.payload.team].bid = action.payload.bid;
         },
     }
 });
 
-export const { setTargetScore, setSandbagPenalty, setTeamName, createNewRound, setTotalBids } = newGameSlice.actions;
+export const { setTargetScore, setSandbagPenalty, setTeamName, createNewRound, setTotalBids, setGame } = newGameSlice.actions;
 export default newGameSlice.reducer;

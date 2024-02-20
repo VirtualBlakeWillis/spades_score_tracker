@@ -277,11 +277,6 @@ function createScoreSheet() {
 
 /* need to change this functions name */
 function createRound(teamName) {
-    // if (tricksBid <= 0 || isNaN(tricksBid)) {
-    //     console.log('incorrect tricksBid value');
-    //     alert('incorrect tricksBid value');
-    //     return;
-    // }
 
     const roundId = teamName + 'round' + roundNumber;
     let html = '';
