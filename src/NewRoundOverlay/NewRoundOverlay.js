@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { createNewRound } from "../reducers/newGameSlice";
+import { createNewRound, setTotalBids } from "../reducers/newGameSlice";
 import CreateEnterBids from "../EnterBids/EnterBids";
 import CreateBidsTotal from "../TotalBids/TotalBids";
 
@@ -14,11 +14,14 @@ const NewRoundOverlay = () => {
         e.preventDefault();
         const team1Total = document.getElementById(`${teamNameOne}-${roundNumber}-total`).innerHTML
         if (team1Total !== "total") {
-            
+            dispatch(setTotalBids({team: 'team1', bid: parseInt(team1Total)}));
         }
-        console.log("team 1 total: "+ team1Total);
+        const team2Total = document.getElementById(`${teamNameTwo}-${roundNumber}-total`).innerHTML
+        if (team2Total !== "total") {
+            dispatch(setTotalBids({team: 'team2', bid: parseInt(team2Total)}));
+        }
 
-        // document.getElementById('newRoundOverlay').style.display = 'none';
+        document.getElementById('newRoundOverlay').style.display = 'none';
         // dispatch(createNewRound())
     }
 

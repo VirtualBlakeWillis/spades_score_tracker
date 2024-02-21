@@ -8,24 +8,25 @@ const CreateEnterBids = (props) => {
     const teamNameTwo = useSelector(state => state.newGame.teams.team2.name);
 
     const dispatch = useDispatch();
-    
-    function updateBids(teamName, roundNumber) {
-        const total = updateBidsTotal(teamName, roundNumber);
-        if (total) {
-            console.log(total)
-            if (teamName === teamNameOne) {
-            dispatch(setTotalBids({team: 'team1', bid: total}));
-            } else {
-            dispatch(setTotalBids({team: 'team2', bid: total}));
-            }
-        }
-    }
+
+    /*          Switching dispatch to NewRoundOverlay component          */
+    // function updateBids(teamName, roundNumber) {
+    //     const total = updateBidsTotal(teamName, roundNumber);
+    //     if (total) {
+    //         console.log(total)
+    //         if (teamName === teamNameOne) {
+    //         dispatch(setTotalBids({team: 'team1', bid: total}));
+    //         } else {
+    //         dispatch(setTotalBids({team: 'team2', bid: total}));
+    //         }
+    //     }
+    // }
 
     const { teamName, roundNumber, bidNumber } = props;
     const bidId = `${teamName}-${roundNumber}-${bidNumber}`;
     console.log(bidId);
     return (
-        <select className="bidInput" id={bidId} onChange={() => {updateBids(teamName, roundNumber)}}>
+        <select className="bidInput" id={bidId} onChange={() => {updateBidsTotal(teamName, roundNumber)}}>
         <option defaultValue>bid</option>
         <option value="0">nil</option>
         <option value="2">2</option>

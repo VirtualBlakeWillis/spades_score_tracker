@@ -14,13 +14,13 @@ function updateBidsTotal(teamName, roundNumber) {
 
     if (bidOne == null || bidTwo == null) {
       console.log("missing Bids!");
-      return
+      return (-1);
     }
     bidOne = bidOne.value;
     bidTwo = bidTwo.value;
     if (bidOne == "bid" || bidTwo == "bid") {
       console.log("missing Bids!");
-      return
+      return (-1);
     } else {
       console.log("updating total");
       const bidTotal = parseInt(bidOne) + parseInt(bidTwo);
