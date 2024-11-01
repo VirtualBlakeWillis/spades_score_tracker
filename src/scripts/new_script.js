@@ -1,4 +1,6 @@
 /* imports */
+import endRoundOverlay from "../endRoundOverlay";
+
 
 
 
@@ -77,10 +79,10 @@ function createEnterBids(teamName, roundNumber, bidNumber) {
         console.log("updating total");
         const bidTotal = parseInt(bidOne) + parseInt(bidTwo);
 
-        // document.querySelector(`#${bidId}`).innerHTML = bidTotal;
-        console.log(bidId, document.querySelector(`#${bidId}`));
+        document.querySelector(`#${bidId}`).innerHTML = bidTotal;
+        // console.log(bidId, document.querySelector(`#${bidId}`));
       }
-      console.log(bidOne, bidTwo);
+    //   console.log(bidOne, bidTwo);
       return bidOne;
   }
   function createBidsFinal(teamName, roundNumber) {
@@ -109,99 +111,8 @@ function createEnterBids(teamName, roundNumber, bidNumber) {
 
 
 /* New Round Overlay */
-function newRoundOverlay({teamNameOne = 'teamOne', teamNameTwo = 'teamTwo'} = {}) {
-    roundNumber++; /* increment round number */
-  
-    let body = document.querySelector("body");
-    let innerHtml = `
-    <div id="newRoundOverlay">
-        <div class="overlayWrapper">
-            <div class="scoreWrapper">
-                <h1 class="teamName teamNameOne">${teamNameOne}</h1>
-                <div class="bidsWrapper">
-                    <div class="inputWrapper">
-                        ${createEnterBids('teamOne', roundNumber, 1)}                     
-                        ${createEnterBids('teamOne', roundNumber, 2)}                     
-                    </div>
-                    ${createBidsTotal('teamOne', roundNumber)}
-                </div>
-            </div>
-            <div class="scoreWrapper">
-                <h1 class="teamName teamNameTwo">${teamNameTwo}</h1>
-                <div class="bidsWrapper" style="flex-direction: row-reverse;">
-                    <div class="inputWrapper">
-                    ${createEnterBids('teamTwo', roundNumber, 1)}                     
-                    ${createEnterBids('teamTwo', roundNumber, 2)}  
-                    </div>
-                    ${createBidsTotal('teamTwo', roundNumber)}
-                </div>
-            </div>
-        </div>
-        <button class="primaryButton" onclick="createNewRound();">
-            <p class="primaryButtonText">Submit</p>
-        </button>
-    </div>
-    `
-    body.innerHTML += innerHtml;
-    overlayOn('newRoundOverlay');
-  
-    let b1 = document.querySelector(`#teamOne${roundNumber}1`);
-    let b2 = document.querySelector(`#teamOne${roundNumber}2`);
-    let b3 = document.querySelector(`#teamTwo${roundNumber}1`);
-    let b4 = document.querySelector(`#teamTwo${roundNumber}2`);
-  
-    b1.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
-    b2.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
-    b3.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
-    b4.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
-}
 
-function endRoundOverlay() {
-    const body = document.querySelector("body");
 
-    const teamOneId = 'teamOneround' + roundNumber;
-    const teamTwoId = 'teamTworound' + roundNumber;
-
-    console.log('teamOneId: ' + teamOneId);
-    let teamOneBids = document.querySelector(`#${teamOneId} .tricksWrapper .tricksBid`).innerHTML;
-    let teamTwoBids = document.querySelector(`#${teamTwoId} .tricksWrapper .tricksBid`).innerHTML;
-    teamOneBids = parseInt(teamOneBids);
-    teamTwoBids = parseInt(teamTwoBids);
-
-    if (isNaN(teamOneBids) || isNaN(teamTwoBids)) {
-        console.log('teamOneBids or teamTwoBids is not a number');
-        console.log(`teamOneBids: ${teamOneBids}. teamTwoBids: ${teamTwoBids}`);
-    }
-
-    const innerHtml = `
-    <div id="endRoundOverlay">
-        <div class="overlayWrapper">
-            <div class="scoreWrapper">
-                <h1 class="teamName teamOneName">${teamNameOne}</h1>
-                <div class="inputWrapper">
-                    <div class="bidsPlaced">${teamOneBids}</div>
-                    <div class="bidsFinal">
-                        ${createBidsFinal('teamOne', roundNumber)}
-                    </div>
-                </div>
-            </div>
-            <div class="scoreWrapper">
-                <h1 class="teamName teamTwoName">${teamNameTwo}</h1>
-                <div class="inputWrapper">
-                    <div class="bidsPlaced">${teamTwoBids}</div>
-                    <div class="bidsFinal">
-                    ${createBidsFinal('teamTwo', roundNumber)}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="primaryButton" onclick="finishRound();">
-            <p class="primaryButtonText">Submit</p>
-        </button>
-    </div>`;
-    body.innerHTML += innerHtml;
-    overlayOn('endRoundOverlay');
-}
 
 function finishRound() {
     const teamOneId = 'teamOneround' + roundNumber;
