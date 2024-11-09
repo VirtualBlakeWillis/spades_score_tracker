@@ -1,12 +1,10 @@
-function newRoundOverlay({ gameState }) {
+export default function  NewRoundOverlay({ gameState }) {
   const teamA_name = gameState.teamA_name;
   const teamB_name = gameState.teamB_name;
-  const roundNumber = gameState.roundNumber;
-
+//   const roundNumber = gameState.roundNumber;
   // roundNumber++; /* increment round number */
 
-  let body = document.querySelector("body");
-  let innerHtml = (
+  return (
   <div id="newRoundOverlay">
       <div class="overlayWrapper">
           <div class="scoreWrapper">
@@ -35,16 +33,15 @@ function newRoundOverlay({ gameState }) {
       </button>
   </div>
   );
-  body.append(innerHtml)
   overlayOn('newRoundOverlay');
 
-  let b1 = document.querySelector(`#teamOne${roundNumber}1`);
-  let b2 = document.querySelector(`#teamOne${roundNumber}2`);
-  let b3 = document.querySelector(`#teamTwo${roundNumber}1`);
-  let b4 = document.querySelector(`#teamTwo${roundNumber}2`);
+//   let b1 = document.querySelector(`#teamOne${roundNumber}1`);
+//   let b2 = document.querySelector(`#teamOne${roundNumber}2`);
+//   let b3 = document.querySelector(`#teamTwo${roundNumber}1`);
+//   let b4 = document.querySelector(`#teamTwo${roundNumber}2`);
 
-  b1.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
-  b2.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
-  b3.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
-  b4.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
+//   b1.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
+//   b2.addEventListener("change", function() { updateBidsTotal('teamOne', roundNumber) });
+//   b3.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
+//   b4.addEventListener("change", function() { updateBidsTotal('teamTwo', roundNumber) });
 }

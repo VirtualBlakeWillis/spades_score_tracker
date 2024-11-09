@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function createScoreSheet({ teamA_name, teamB_name }) {
+export default function ScoreSheet({ teamA_name, teamB_name }) {
   return (
     <div id="scoreSheet">
       <div id="scoreWrapper">
