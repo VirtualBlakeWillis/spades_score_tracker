@@ -23,6 +23,8 @@ export function gameReducer(state, action) {
         rounds: [...state.rounds,
           {
             aTeam: {
+              initialScore: state.rounds.length === 0 ? 0 : state.rounds[state.rounds.length - 1].aTeam.finalScore,
+              finalScore: undefined,
               bids: action.payload.aTeamBids,
               got: -1,
               sandbags: 0,
@@ -32,6 +34,8 @@ export function gameReducer(state, action) {
               },
             },
             bTeam: {
+              initialScore: state.rounds.length === 0 ? 0 : state.rounds[state.rounds.length - 1].bTeam.finalScore,
+              finalScore: undefined,
               bids: action.payload.bTeamBids,
               got: -1,
               sandbags: 0,
@@ -52,6 +56,7 @@ export function gameReducer(state, action) {
               ...round,
               aTeam: {
                 ...round.aTeam,
+                finalScore: action.payload.aTeamFinalScore,
                 got: action.payload.aTeamGot,
                 sandbags: action.payload.aTeamSandbags,
                 nil: {
@@ -61,6 +66,7 @@ export function gameReducer(state, action) {
               },
               bTeam: {
                 ...round.bTeam,
+                finalScore: action.payload.bTeamFinalScore,
                 got: action.payload.bTeamGot,
                 sandbags: action.payload.bTeamSandbags,
                 nil: {

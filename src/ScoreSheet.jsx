@@ -1,5 +1,6 @@
 import React from "react";
 import NewRoundOverlay from "./newRoundOverlay";
+import TeamRoundEntry from "./TeamRoundEntry";
 import { useState } from "react";
 // import EndRoundOverlay from "./endRoundOverlay";
 
@@ -25,6 +26,15 @@ export default function ScoreSheet() {
             <h1 className="teamName">{gameState.aTeamName}</h1>
           </div>
           <div className="teamDivider divider"></div>
+          {gameState.rounds.map((round, index) => {
+            return (
+              <TeamRoundEntry
+                thisTeam="teamA"
+                teamRound={round.aTeam}
+                roundNumber={index + 1}
+              />
+            );
+          })}
         </div>
         <div
           className="divider"
@@ -36,6 +46,15 @@ export default function ScoreSheet() {
             <h1 className="teamName">{gameState.bTeamName}</h1>
           </div>
           <div className="teamDivider divider"></div>
+          {gameState.rounds.map((round, index) => {
+            return (
+              <TeamRoundEntry
+                thisTeam="teamB"
+                teamRound={round.bTeam}
+                roundNumber={index + 1}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="buttonWrapper">
