@@ -1,5 +1,6 @@
+import Game from './game.js';
 /* imports */
-import endRoundOverlay from "../endRoundOverlay";
+// import endRoundOverlay from "../endRoundOverlay";
 
 
 
@@ -34,35 +35,35 @@ function overlayOff(overlayId) {
 
 
 /* creating and updating bids */
-function createEnterBids(teamName, roundNumber, bidNumber) {
-    const bidId = teamName + roundNumber + bidNumber;
-    const bid = `
-    <select class="bidInput" id="${bidId}">
-        <option selected>bid</option>
-        <option value="0">nil</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-    </select>
-    `
-    return bid;
-  }
-  function createBidsTotal(teamName, roundNumber) {
-      const bidId = teamName + roundNumber + "total";
-      const bid = `
-      <div class="bidInputTotal" id="${bidId}">total</div>
-      `
-      return bid;
-  }
+// function createEnterBids(teamName, roundNumber, bidNumber) {
+//     const bidId = teamName + roundNumber + bidNumber;
+//     const bid = `
+//     <select class="bidInput" id="${bidId}">
+//         <option selected>bid</option>
+//         <option value="0">nil</option>
+//         <option value="2">2</option>
+//         <option value="3">3</option>
+//         <option value="4">4</option>
+//         <option value="5">5</option>
+//         <option value="6">6</option>
+//         <option value="7">7</option>
+//         <option value="8">8</option>
+//         <option value="9">9</option>
+//         <option value="10">10</option>
+//         <option value="11">11</option>
+//         <option value="12">12</option>
+//         <option value="13">13</option>
+//     </select>
+//     `
+//     return bid;
+//   }
+//   function createBidsTotal(teamName, roundNumber) {
+//       const bidId = teamName + roundNumber + "total";
+//       const bid = `
+//       <div class="bidInputTotal" id="${bidId}">total</div>
+//       `
+//       return bid;
+//   }
   function updateBidsTotal(teamName, roundNumber) {
 
       const bidId = teamName + roundNumber + "total";
@@ -85,28 +86,28 @@ function createEnterBids(teamName, roundNumber, bidNumber) {
     //   console.log(bidOne, bidTwo);
       return bidOne;
   }
-  function createBidsFinal(teamName, roundNumber) {
-    const bidId = teamName + roundNumber + 'final';
-    const bid = `
-    <select class="bidInput" id="${bidId}">
-        <option selected>bid</option>
-        <option value="0">nil</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-    </select>
-    `
-    return bid;
-  }
+//   function createBidsFinal(teamName, roundNumber) {
+//     const bidId = teamName + roundNumber + 'final';
+//     const bid = `
+//     <select class="bidInput" id="${bidId}">
+//         <option selected>bid</option>
+//         <option value="0">nil</option>
+//         <option value="2">2</option>
+//         <option value="3">3</option>
+//         <option value="4">4</option>
+//         <option value="5">5</option>
+//         <option value="6">6</option>
+//         <option value="7">7</option>
+//         <option value="8">8</option>
+//         <option value="9">9</option>
+//         <option value="10">10</option>
+//         <option value="11">11</option>
+//         <option value="12">12</option>
+//         <option value="13">13</option>
+//     </select>
+//     `
+//     return bid;
+//   }
 
 
 
@@ -327,12 +328,25 @@ function calculateNewScore(teamName, tricksBid, tricksGot) {
 
 const start = function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const targetScore = urlParams.get('targetScore');
-    const sandbagPenalty = urlParams.get('sandbagPenalty');
-
     /* update team names globally */
     teamNameOne = urlParams.get('team1');
     teamNameTwo = urlParams.get('team2');
+
+    /* new code, currently overhauling */
+    const targetScore = urlParams.get('targetScore');
+    const sandbagPenalty = urlParams.get('sandbagPenalty');
+    const aTeamName = urlParams.get('team1');
+    const bTeamName = urlParams.get('team2');
+
+    const gameState = new Game({
+        targetScore: targetScore,
+        sandbagThreshold: sandbagPenalty,
+        aTeamName: aTeamName,
+        bTeamName: bTeamName,
+    });
+
+
+
 
     createScoreSheet();
 }

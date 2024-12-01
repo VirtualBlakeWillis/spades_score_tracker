@@ -1,37 +1,43 @@
 import appendNewRound from "../newRound";
-import createScoreSheet from "../scoreSheet";
+// import createScoreSheet from "../scoreSheet";
 const round = {
-  teamA_bids: 0,
-  teamA_sandbags: 0,
-  teamA_gots: -1,
-  nil: {
-    teamA_nil: false,
-    teamA_nilSuccess: false,
-    teamB_nil: false,
-    teamB_nilSuccess: false,
+  aTeam: {
+    bids: 0,
+    got: -1,
+    sandbags: 0,
+    nil: {
+      nil: false,
+      nilSuccess: false,
+    }
   },
-  teamB_bids: 0,
-  teamB_sandbags: 0,
-  teamB_gots: -1,
+  bTeam: {
+    bids: 0,
+    got: -1,
+    sandbags: 0,
+    nil: {
+      nil: false,
+      nilSuccess: false,
+    }
+  },
 }
 
-class Game {
+export default class Game {
   constructor({
     sandbagThreshold = 0,
     targetScore = 0,
-    teamA_name = 'Team One',
-    teamB_name = 'Team Two',
+    aTeamName = 'Team One',
+    bTeamName = 'Team Two',
   }) {
     this.sandbagThreshold = sandbagThreshold;
     this.targetScore = targetScore;
-    this.teamA_name = teamA_name;
-    this.teamB_name = teamB_name;
+    this.aTeamName = aTeamName;
+    this.bTeamName = bTeamName;
     this.roundNumber = 0;
     this.rounds = [];
   }
 
 
-  createRound() {
+  startRound() {
     this.roundNumber++;
     // This happens after the overlay is submitted
     appendNewRound({
@@ -40,12 +46,15 @@ class Game {
       roundNumber: this.roundNumber,
     });
   }
+  endRound() {
+    this.rounds.push(round);
+  }
 
   createScoreSheet() {
     const body = document.querySelector("body");
-    body.innerHTML += createScoreSheet({
-      teamA_name: this.teamA_name,
-      teamB_name: this.teamB_name,
-    });
+    // body.innerHTML += createScoreSheet({
+    //   teamA_name: this.teamA_name,
+    //   teamB_name: this.teamB_name,
+    // });
   }
 }

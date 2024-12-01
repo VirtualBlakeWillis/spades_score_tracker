@@ -1,8 +1,13 @@
-export default function endRoundOverlay({gameState}) {
+import BidsFinal from "./components/BidsFinal";
+export default function EndRoundOverlay({gameState, updateGameState, onFinish}) {
+//   const body = document.querySelector("body");
+    const teamNameOne = gameState.aTeamName;
+    
+    const teamNameTwo = gameState.bTeamName;
 
-
-
-  const body = document.querySelector("body");
+    const teamOneBids = 999;
+    const teamTwoBids = 999;
+    
 
   // const teamAId = 'teamOneround' + gameState.roundNumber;
   // const teamTwoId = 'teamTworound' + gameState.roundNumber;
@@ -18,7 +23,7 @@ export default function endRoundOverlay({gameState}) {
   //     console.log(`teamOneBids: ${teamOneBids}. teamTwoBids: ${teamTwoBids}`);
   // }
 
-  const innerHtml = (
+  return (
   <div id="endRoundOverlay">
       <div class="overlayWrapper">
           <div class="scoreWrapper">
@@ -26,7 +31,7 @@ export default function endRoundOverlay({gameState}) {
               <div class="inputWrapper">
                   <div class="bidsPlaced">{teamOneBids}</div>
                   <div class="bidsFinal">
-                      {createBidsFinal('teamOne', roundNumber)}
+                      <BidsFinal teamName="teamOne" roundNumber={gameState.roundNumber} />
                   </div>
               </div>
           </div>
@@ -35,7 +40,7 @@ export default function endRoundOverlay({gameState}) {
               <div class="inputWrapper">
                   <div class="bidsPlaced">{teamTwoBids}</div>
                   <div class="bidsFinal">
-                  {createBidsFinal('teamTwo', roundNumber)}
+                    <BidsFinal teamName="teamTwo" roundNumber={gameState.roundNumber} />
                   </div>
               </div>
           </div>
@@ -45,6 +50,6 @@ export default function endRoundOverlay({gameState}) {
       </button>
   </div>
   );
-  body.append(innerHtml)
-  overlayOn('endRoundOverlay');
+//   body.append(innerHtml)
+//   overlayOn('endRoundOverlay');
 }
