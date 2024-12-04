@@ -21,6 +21,15 @@ export default function  NewRoundOverlay({toggleNewRoundOverlay}) {
     const bTeamBids = bTeamBidIds.map(id => document.querySelector(`#${id}`).value);
     const aTeamNil = aTeamBids.includes('0');
     const bTeamNil = bTeamBids.includes('0');
+    let aTeamBlind = false;
+    let bTeamBlind = false;
+    if (aTeamNil) {
+      aTeamBlind = document.querySelector(`#teamA${roundNumber}nil`).checked;
+    }
+    if (bTeamNil) {
+      bTeamBlind = document.querySelector(`#teamB${roundNumber}nil`).checked;
+    }
+
 
     const aTeamTotal = aTeamBids.reduce((acc, bid) => acc + parseInt(bid), 0);
     const bTeamTotal = bTeamBids.reduce((acc, bid) => acc + parseInt(bid), 0);
@@ -29,8 +38,10 @@ export default function  NewRoundOverlay({toggleNewRoundOverlay}) {
       payload: {
         aTeamBids: aTeamTotal,
         aTeamNil,
+        aTeamBlind,
         bTeamBids: bTeamTotal,
         bTeamNil,
+        bTeamBlind,
       },
     });
     toggleNewRoundOverlay();

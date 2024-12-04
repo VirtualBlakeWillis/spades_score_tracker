@@ -2,7 +2,7 @@ import React from "react";
 import NewRoundOverlay from "./newRoundOverlay";
 import TeamRoundEntry from "./TeamRoundEntry";
 import { useState } from "react";
-// import EndRoundOverlay from "./endRoundOverlay";
+import EndRoundOverlay from "./endRoundOverlay";
 
 import { useGame } from "./GameContext";
 import './styles/new_style.css'
@@ -10,10 +10,13 @@ import './styles/new_style.css'
 export default function ScoreSheet() {
   const gameState = useGame();
   const [newRoundOverlay, setNewRoundOverlay] = useState(false);
-  // const [endRoundOverlay, setEndRoundOverlay] = useState(false);
+  const [endRoundOverlay, setEndRoundOverlay] = useState(false);
 
   function toggleNewRoundOverlay() {
     setNewRoundOverlay(!newRoundOverlay);
+  }
+  function toggleEndRoundOverlay() {
+    setEndRoundOverlay(!endRoundOverlay);
   }
   // function endRound() {
   //   setEndRoundOverlay(true);
@@ -49,7 +52,7 @@ export default function ScoreSheet() {
           {gameState.rounds.map((round, index) => {
             return (
               <TeamRoundEntry
-                thisTeam="teamB"
+                teamName="teamB"
                 teamRound={round.bTeam}
                 roundNumber={index + 1}
               />
@@ -66,14 +69,14 @@ export default function ScoreSheet() {
         </button>
         <button
           className="secondaryButton"
-          // onClick={() => endRound()}
+          onClick={() => toggleEndRoundOverlay()}
         >
           <p className="secondaryButtonText">End Round</p>
         </button>
       </div>
       {/* <div className="overlays"> */}
         { newRoundOverlay && <NewRoundOverlay toggleNewRoundOverlay={toggleNewRoundOverlay}/> }
-        {/* {endRoundOverlay && <EndRoundOverlay />} */}
+        {endRoundOverlay && <EndRoundOverlay toggleEndRoundOverlay={toggleEndRoundOverlay}/>}
       {/* </div> */}
     </div>
   );

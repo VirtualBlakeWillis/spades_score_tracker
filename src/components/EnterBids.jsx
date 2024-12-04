@@ -1,6 +1,7 @@
 export default function EnterBids({teamName, roundNumber, bidNumber, onChange} ) {
   const bidId = `${teamName}${roundNumber}${bidNumber}`
   return (
+    <>
   <select className="bidInput" id={bidId} defaultValue={-1} onChange={onChange}>
       <option value="-1">bid</option>
       <option value="0">nil</option>
@@ -17,5 +18,15 @@ export default function EnterBids({teamName, roundNumber, bidNumber, onChange} )
       <option value="12">12</option>
       <option value="13">13</option>
   </select>
+  {document.querySelector(`#${bidId}`) !== null && document.querySelector(`#${bidId}`).value === '0'
+    ? (
+      <>
+        <label htmlFor={`${teamName}${roundNumber}nil`} >Blind Nil?</label>
+        <input type="checkbox" className="blindNilInpuy" id={`${teamName}${roundNumber}nil`} />
+      </>
+    )
+    : null
+  }
+  </>
   )
 }

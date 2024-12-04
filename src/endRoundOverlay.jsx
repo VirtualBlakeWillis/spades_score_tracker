@@ -1,9 +1,10 @@
 import BidsFinal from "./components/BidsFinal";
-export default function EndRoundOverlay({gameState, updateGameState, onFinish}) {
+export default function EndRoundOverlay({gameState, updateGameState, onFinish, toggleEndRoundOverlay}) {
 //   const body = document.querySelector("body");
     const teamNameOne = gameState.aTeamName;
     
     const teamNameTwo = gameState.bTeamName;
+    const nil = gameState.rounds[gameState.roundNumber - 1].aTeam.nil.nil;
 
     const teamOneBids = 999;
     const teamTwoBids = 999;
@@ -33,6 +34,13 @@ export default function EndRoundOverlay({gameState, updateGameState, onFinish}) 
                   <div class="bidsFinal">
                       <BidsFinal teamName="teamOne" roundNumber={gameState.roundNumber} />
                   </div>
+                  {/* nil */}
+                  {nil && (
+                        <div class="nilWrapper">
+                            <input type="checkbox" id="nilCheckbox" name="nilCheckbox" />
+                            <label for="nilCheckbox">Nil Success</label>
+                        </div>
+                  )}
               </div>
           </div>
           <div class="scoreWrapper">
@@ -42,6 +50,12 @@ export default function EndRoundOverlay({gameState, updateGameState, onFinish}) 
                   <div class="bidsFinal">
                     <BidsFinal teamName="teamTwo" roundNumber={gameState.roundNumber} />
                   </div>
+                  {nil && (
+                        <div class="nilWrapper">
+                            <input type="checkbox" id="nilCheckbox" name="nilCheckbox" />
+                            <label for="nilCheckbox">Nil Success</label>
+                        </div>
+                  )}
               </div>
           </div>
       </div>

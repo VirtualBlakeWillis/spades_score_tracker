@@ -30,6 +30,7 @@ export function gameReducer(state, action) {
               sandbags: 0,
               nil: {
                 nil: action.payload.aTeamNil,
+                blind: action.payload.aTeamBlind,
                 nilSuccess: false,
               },
             },
@@ -41,6 +42,7 @@ export function gameReducer(state, action) {
               sandbags: 0,
               nil: {
                 nil: action.payload.bTeamNil,
+                blind: action.payload.bTeamBlind,
                 nilSuccess: false,
               },
             },

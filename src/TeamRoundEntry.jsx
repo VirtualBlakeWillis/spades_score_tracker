@@ -1,6 +1,6 @@
-export default function TeamRoundEntry({thisTeam, teamRound, roundNumber}) {
+export default function TeamRoundEntry({teamName, teamRound, roundNumber}) {
   return (
-    <div className="teamRoundWrapper" id={`${thisTeam}round${roundNumber}`}>
+    <div className="teamRoundWrapper" id={`${teamName}round${roundNumber}`}>
                 <div className="scoreAndSandbagsWrapper">
                   <h2 className="score">{teamRound.finalScore ? teamRound.finalScore : teamRound.initialScore}</h2>
                   <div className="sandbags">{teamRound.sandbags}</div>
