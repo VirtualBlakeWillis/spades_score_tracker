@@ -26,8 +26,9 @@ export default function NewGame() {
       payload: {
         aTeamName: aTeam,
         bTeamName: bTeam,
-        targetScore: targetScore,
-        sandbagThreshold: sandbagPenalty,
+        targetScore: parseInt(targetScore),
+        sandbagThreshold: parseInt(sandbagPenalty),
+        nilBonus: parseInt(sandbagPenalty) * 10,
       },
     });
   }

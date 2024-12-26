@@ -48,15 +48,16 @@ export default function  NewRoundOverlay({toggleNewRoundOverlay}) {
   }
 
   function updateBidsTotal(teamName, roundNumber) {
+    const idPrefix = teamName + roundNumber;
 
-    const bidId = teamName + roundNumber + "total";
+    const bidId = idPrefix + "total";
 
 
-    const bidOneId = teamName + roundNumber + 1;
-    const bidTwoId = teamName + roundNumber + 2;
+    const bidOneId = idPrefix + 1;
+    const bidTwoId = idPrefix + 2;
     const bidOne = document.querySelector(`#${bidOneId}`).value;
     const bidTwo = document.querySelector(`#${bidTwoId}`).value;
-    console.log(bidOne, bidTwo);
+    console.log(typeof(bidOne), typeof(bidTwo));
     if (bidOne === '-1' || bidTwo === '-1') {
       console.log("missing Bids!");
       document.querySelector(`#${bidId}`).innerHTML = 'total';

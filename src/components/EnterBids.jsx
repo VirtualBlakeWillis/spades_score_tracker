@@ -1,8 +1,18 @@
+import { useState } from "react";
+
 export default function EnterBids({teamName, roundNumber, bidNumber, onChange} ) {
+  const [goingNil, setGoingNil] = useState(false);
   const bidId = `${teamName}${roundNumber}${bidNumber}`
+
+  function handleChange(e) {
+    if (e.target.value === '0') {
+      setGoingNil(true);
+    }
+    onChange();
+  }
   return (
     <>
-  <select className="bidInput" id={bidId} defaultValue={-1} onChange={onChange}>
+  <select className="bidInput" id={bidId} defaultValue={-1} onChange={handleChange}>
       <option value="-1">bid</option>
       <option value="0">nil</option>
       <option value="2">2</option>
@@ -18,14 +28,12 @@ export default function EnterBids({teamName, roundNumber, bidNumber, onChange} )
       <option value="12">12</option>
       <option value="13">13</option>
   </select>
-  {document.querySelector(`#${bidId}`) !== null && document.querySelector(`#${bidId}`).value === '0'
-    ? (
+  { goingNil && (
       <>
         <label htmlFor={`${teamName}${roundNumber}nil`} >Blind Nil?</label>
-        <input type="checkbox" className="blindNilInpuy" id={`${teamName}${roundNumber}nil`} />
+        <input type="checkbox" className="blindNilInput" id={`${teamName}${roundNumber}nil`} />
       </>
     )
-    : null
   }
   </>
   )

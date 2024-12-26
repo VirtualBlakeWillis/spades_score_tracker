@@ -1,7 +1,9 @@
+
 export default function BidsFinal({teamName, roundNumber}) {
   const bidId = teamName + roundNumber + 'final';
   return (
-  <select class="bidInput" id={bidId} defaultValue={"-1"}>
+    <>
+  <select className="bidInput" id={bidId} defaultValue={"-1"}>
       <option value="-1">bid</option>
       <option value="0">nil</option>
       <option value="2">2</option>
@@ -17,5 +19,13 @@ export default function BidsFinal({teamName, roundNumber}) {
       <option value="12">12</option>
       <option value="13">13</option>
   </select>
+  {/* { hadGoneNil && (
+      <>
+        <label htmlFor={`${teamName}${roundNumber}nilSuccess`} >Nil Success?</label>
+        <input type="checkbox" id={`${teamName}${roundNumber}nilSuccess`} />
+      </>
+    )
+  } */}
+  </>
   )
 }

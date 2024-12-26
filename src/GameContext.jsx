@@ -9,11 +9,12 @@ export function gameReducer(state, action) {
         gameStarted: true,
         aTeamName: action.payload.aTeamName,
         bTeamName: action.payload.bTeamName,
-        roundNumber: 1,
+        roundNumber: 0,
         rounds: [],
         rules: {
           targetScore: action.payload.targetScore,
           sandbagThreshold: action.payload.sandbagThreshold,
+          nilBonus: action.payload.nilBonus,
         },
       };
     case 'startRound':
