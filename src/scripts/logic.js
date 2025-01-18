@@ -7,20 +7,28 @@ function nilBonus({ blind, nilRuleBonus }) {
   else return parseInt(nilRuleBonus) * 1;
 }
 
+
+
 export function calculateEndOfRoundForTeam({ initialRound, endOfRound, rules }) {
+  console.log('start of EOR calculation: ', initialRound);
+  console.log('end of round: ', endOfRound);
   const returnObject = {...initialRound};
   const { bids, nil } = initialRound;
 
-  const got = parseInt(endOfRound.tricksGot);
-  console.log(initialRound.finalScore);
-
-  returnObject.finalScore = isNaN(parseInt(initialRound.finalScore)) ? 0 : initialRound.finalScore;
-  console.log(returnObject.finalScore);
+  const got = endOfRound.tricksGot;
+  // if (initialRound.initialScore === 0) {
+  //   // This is the first round
+  //   returnObject.finalScore = 0;
+  // } else {
+  //   // if (isNaN(initialRound.finalScore)) throw new Error('initialRound.finalScore is not a number');
+  //   returnObject.initialScore = initialRound.finalScore;
+  // }
+  returnObject.finalScore = initialRound.initialScore;
   const sandbagsGotten = got > bids ? got - bids : 0;
   returnObject.sandbags += sandbagsGotten;
   returnObject.got = got;
 
-
+  console.log('final score after setup: ', returnObject.finalScore);
 
   let goingBackwards = false;
 
@@ -39,9 +47,9 @@ export function calculateEndOfRoundForTeam({ initialRound, endOfRound, rules }) 
   } else {
     // Going Positive
 
-    returnObject.finalScore += bids * 10 + sandbagsGotten;
+    returnObject.finalScore += (bids * 10) + sandbagsGotten;
 
-    if (nil.nil && endOfRound.nilSuccess) { // I think the nilSuccess is not needed here
+    if (nil.nil && endOfRound.nilSuccess) { // I think the nilSuccess is not needed here, because its already checked above
       returnObject.nil.nilSuccess = endOfRound.nilSuccess;
       returnObject.finalScore += nilBonus({ blind: nil.blind, nilRuleBonus: rules.nilBonus });
 
@@ -51,9 +59,10 @@ export function calculateEndOfRoundForTeam({ initialRound, endOfRound, rules }) 
 
   // Sandbag penalty
   if (returnObject.sandbags >= rules.sandbagThreshold) {
-    returnObject.finalScore -= rules.sandbagPenalty;
+    returnObject.finalScore -= (rules.sandbagThreshold * 10);
     returnObject.sandbags -= rules.sandbagThreshold;
   }
+
   console.log('end: ', returnObject.finalScore);
 
   return returnObject;

@@ -11,6 +11,7 @@ export function gameReducer(state, action) {
         bTeamName: action.payload.bTeamName,
         roundNumber: 0,
         rounds: [],
+        winner: null,
         rules: {
           targetScore: action.payload.targetScore,
           sandbagThreshold: action.payload.sandbagThreshold,
@@ -55,7 +56,9 @@ export function gameReducer(state, action) {
         ...state,
         rounds: state.rounds.map((round, index) => {
           if (index === state.roundNumber - 1) {
-            return {
+            console.log('index: ', index);
+            console.log('roundNumber: ', state.roundNumber);
+            const finalizedRound = {
               ...round,
               aTeam: {
                 ...round.aTeam,
@@ -78,9 +81,16 @@ export function gameReducer(state, action) {
                 },
               },
             };
+            console.log('finalizedRound: ', finalizedRound);
+            return finalizedRound;
           }
           return round;
         }),
+      };
+    case 'endGame':
+      return {
+        ...state,
+        winner: action.payload.winner,
       };
     default:
       throw Error('Invalid action type: ', action.type);

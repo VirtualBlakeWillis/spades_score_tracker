@@ -6,6 +6,7 @@ import EndRoundOverlay from "./endRoundOverlay";
 
 import { useGame } from "./GameContext";
 import './styles/new_style.css'
+import { useEffect } from "react";
 
 export default function ScoreSheet() {
   const gameState = useGame();
@@ -17,10 +18,19 @@ export default function ScoreSheet() {
   }
   function toggleEndRoundOverlay() {
     setEndRoundOverlay(!endRoundOverlay);
+    console.log('gameState', gameState);
   }
   // function endRound() {
   //   setEndRoundOverlay(true);
   // }
+  useEffect(() => {
+    console.log('gameState: ', gameState);
+    if (gameState.winner) {
+      console.log('winner reached! its: ', gameState.winner);
+      setEndRoundOverlay(false);
+    }
+    
+  }, [gameState]);
   return (
     <div id="scoreSheet">
       <div id="scoreWrapper">

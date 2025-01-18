@@ -2,6 +2,24 @@ import BidsFinal from "./components/BidsFinal";
 import { useGame, useGameDispatch } from "./GameContext";
 import { calculateEndOfRoundForTeam } from "./scripts/logic";
 
+function isWinner({ team, rules }) {
+    if (team.finalScore >= rules.targetScore) return true;
+    return false;
+  }
+  
+  function determineWinner({ teamA, teamB, rules }) {
+    const aWinner = isWinner({ team: teamA, rules });
+    const bWinner = isWinner({ team: teamB, rules });
+    if (aWinner && bWinner) {
+      if (teamA.finalScore > teamB.finalScore) return 'a';
+      if (teamB.finalScore > teamA.finalScore) return 'b';
+      return 'tie';
+    }
+    if (aWinner) return 'a';
+    if (bWinner) return 'b';
+    return null;
+  }
+  
 export default function EndRoundOverlay({ onFinish, toggleEndRoundOverlay}) {
     const gameState = useGame();
     const dispatch = useGameDispatch();
@@ -18,11 +36,19 @@ export default function EndRoundOverlay({ onFinish, toggleEndRoundOverlay}) {
 
     function onSubmit(e) {
         e.preventDefault();
-        const teamOneGots = document.querySelector(`#teamOne${gameState.roundNumber}final`).value;
+        const teamOneGotsString = document.querySelector(`#teamOne${gameState.roundNumber}final`).value;
+        if (!teamOneGotsString) {
+            throw Error('teamOneGotsString is not defined');
+        }
+        const teamOneGots = parseInt(teamOneGotsString);
         const aNilSuccess = aNil
             ? document.querySelector(`#aNilSuccess`).checked
             : false;
-        const teamTwoGots = document.querySelector(`#teamTwo${gameState.roundNumber}final`).value;
+        const teamTwoGotsString = document.querySelector(`#teamTwo${gameState.roundNumber}final`).value;
+        if (!teamTwoGotsString) {
+            throw Error('teamTwoGotsString is not defined');
+        }
+        const teamTwoGots = parseInt(teamTwoGotsString);
         const bNilSuccess = bNil
             ? document.querySelector(`#bNilSuccess`).checked
             : false;
@@ -40,12 +66,21 @@ export default function EndRoundOverlay({ onFinish, toggleEndRoundOverlay}) {
             endOfRound: teamOneFinalRound,
             rules: gameState.rules,
         });
+        console.log('teamOneRoundEnd: ', teamOneRoundEnd);
         const teamTwoRoundEnd = calculateEndOfRoundForTeam({
             initialRound: gameState.rounds[gameState.roundNumber - 1].bTeam,
             endOfRound: teamTwoFinalRound,
             rules: gameState.rules,
         })
-
+        let winner = null;
+        if (isWinner({ team: teamOneRoundEnd, rules: gameState.rules }) || 
+            isWinner({ team: teamTwoRoundEnd, rules: gameState.rules })) {
+            winner = determineWinner({
+                teamA: teamOneRoundEnd,
+                teamB: teamTwoRoundEnd,
+                rules: gameState.rules,
+            });
+        }
         dispatch({
             type: 'endRound',
             payload: {
@@ -59,6 +94,15 @@ export default function EndRoundOverlay({ onFinish, toggleEndRoundOverlay}) {
                 bTeamNilSuccess: bNilSuccess,
             },
         });
+
+        if (winner) {
+            dispatch({
+                type: 'endGame',
+                payload: {
+                    winner,
+                },
+            });
+        }
         toggleEndRoundOverlay();
         // const teamTwoRoundEnd = calculateEndOfRoundForTeam(gameState.rounds[gameState.roundNumber - 1].bTeam);
     }
