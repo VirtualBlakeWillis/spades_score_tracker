@@ -1,0 +1,218 @@
+/* Reset defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Mobile-first base styles */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.page-header {
+  padding: 1rem;
+  text-align: center;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.form-container {
+  flex: 1;
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.new-game-form {
+  background-color: white;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-input {
+  width: 100%;
+  height: 3rem; /* Larger touch target */
+  padding: 0 1rem;
+  border: 1.5px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: white;
+  -webkit-appearance: none; /* Remove iOS default styling */
+  appearance: none;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+fieldset.form-group {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.radio-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem; /* Larger touch target */
+  padding: 0.5rem;
+  border: 1.5px solid #ddd;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radio-input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0 0.75rem 0 0;
+  cursor: pointer;
+}
+
+.radio-text {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Style for selected radio option */
+.radio-input:checked + .radio-text {
+  color: #007bff;
+  font-weight: 500;
+}
+
+.radio-label:has(.radio-input:checked) {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.form-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.primary-button {
+  width: 100%;
+  height: 3.5rem; /* Larger touch target */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+}
+
+.primary-button:active {
+  background-color: #0056b3;
+  transform: scale(0.98);
+}
+
+/* Safe area inset padding for iOS */
+@supports (padding: max(0px)) {
+  .page-container {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Tablet and larger screens */
+@media (min-width: 640px) {
+  .form-container {
+    padding: 2rem;
+    max-width: 480px;
+  }
+
+  .radio-options {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .radio-label {
+    flex: 1;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .radio-input {
+    margin: 0 0.5rem 0 0;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .page-container {
+    background-color: #1a1a1a;
+  }
+
+  .page-header,
+  .new-game-form {
+    background-color: #2d2d2d;
+  }
+
+  .page-header h1,
+  .form-label,
+  .radio-text {
+    color: #fff;
+  }
+
+  .form-input {
+    background-color: #1a1a1a;
+    border-color: #404040;
+    color: #fff;
+  }
+
+  .radio-label {
+    border-color: #404040;
+  }
+
+  .radio-label:has(.radio-input:checked) {
+    background-color: rgba(0, 123, 255, 0.15);
+  }
+
+  .form-footer {
+    border-color: #404040;
+  }
+} 

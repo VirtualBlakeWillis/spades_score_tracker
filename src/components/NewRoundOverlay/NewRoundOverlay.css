@@ -1,0 +1,155 @@
+.new-round-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.overlay-wrapper {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.score-wrapper {
+  margin-bottom: 2rem;
+}
+
+.score-wrapper:last-child {
+  margin-bottom: 0;
+}
+
+.teams-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.team-section {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 0.75rem;
+}
+
+.team-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: #333;
+}
+
+.bids-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.bids-wrapper.reverse {
+  flex-direction: row-reverse;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+/* Add styles for the bids total */
+.bids-total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.5rem;
+  height: 100%;
+  padding: 0.75rem;
+  background-color: #f0f0f0;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.bids-total span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.primary-button {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 480px;
+  height: 3.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.primary-button:active {
+  background-color: #0056b3;
+  transform: scale(0.98);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .overlay-wrapper {
+    background-color: #2d2d2d;
+  }
+
+  .team-section {
+    background-color: #1a1a1a;
+  }
+
+  .team-name {
+    color: #fff;
+  }
+
+  .bids-total {
+    background-color: #333;
+    color: #fff;
+  }
+
+  .bids-total span {
+    color: #aaa;
+  }
+}
+
+/* Tablet and larger screens */
+@media (min-width: 640px) {
+  .teams-container {
+    gap: 2rem;
+  }
+
+  .team-section {
+    padding: 1.5rem;
+  }
+
+  .bids-wrapper {
+    gap: 1.5rem;
+  }
+
+  .bids-total {
+    min-width: 4rem;
+    padding: 1rem;
+  }
+} 

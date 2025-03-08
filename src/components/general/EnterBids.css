@@ -1,0 +1,121 @@
+.enter-bids {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.bid-select {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 1.125rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  background-color: white;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.bid-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.blind-nil-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.blind-nil-checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  border-radius: 0.25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.blind-nil-checkbox:checked {
+  background-color: #4a90e2;
+  border-color: #4a90e2;
+}
+
+.blind-nil-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.blind-nil-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.blind-nil-wrapper label {
+  font-size: 0.875rem;
+  color: #666;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .bid-select {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: #fff;
+  }
+
+  .bid-select:focus {
+    border-color: #4a90e2;
+  }
+
+  .blind-nil-checkbox {
+    border-color: #444;
+    background-color: #2d2d2d;
+  }
+
+  .blind-nil-checkbox:checked {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+  }
+
+  .blind-nil-wrapper label {
+    color: #999;
+  }
+}
+
+/* Larger screens */
+@media (min-width: 640px) {
+  .bid-select {
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  .blind-nil-wrapper {
+    padding: 0.5rem 0;
+  }
+} 

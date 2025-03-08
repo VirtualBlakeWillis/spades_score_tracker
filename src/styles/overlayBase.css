@@ -1,0 +1,107 @@
+/* Base overlay styles */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Mobile-first: slide up from bottom */
+  z-index: 1000;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.overlay-content {
+  background-color: white;
+  border-radius: 1.25rem 1.25rem 0 0;
+  padding: 1.5rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.overlay-header {
+  margin: -1.5rem -1.5rem 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: -1.5rem;
+  background-color: white;
+  border-radius: 1.25rem 1.25rem 0 0;
+  z-index: 1;
+}
+
+.overlay-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.overlay-footer {
+  margin: 1.5rem -1.5rem -1.5rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  background-color: white;
+  position: sticky;
+  bottom: -1.5rem;
+}
+
+.primary-button {
+  width: 100%;
+  height: 3.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.primary-button:active {
+  transform: scale(0.98);
+}
+
+/* Tablet and larger screens */
+@media (min-width: 640px) {
+  .overlay {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .overlay-content {
+    width: 90%;
+    max-width: 480px;
+    max-height: 85vh;
+    border-radius: 1.25rem;
+  }
+
+  .overlay-header {
+    border-radius: 1.25rem 1.25rem 0 0;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .overlay-content,
+  .overlay-header,
+  .overlay-footer {
+    background-color: #2d2d2d;
+  }
+
+  .overlay-header,
+  .overlay-footer {
+    border-color: #404040;
+  }
+
+  .overlay-title {
+    color: #fff;
+  }
+} 

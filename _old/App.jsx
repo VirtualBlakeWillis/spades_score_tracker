@@ -1,10 +1,8 @@
-
 import { useCallback, useState } from "react"
-import NewGame from "./NewGame"
-import ScoreSheet from "./ScoreSheet";
-
-
+import NewGame from "./sections/newGame"
+import ScoreSheet from "./sections/scoreSheet";
 import { GameProvider, useGame } from './GameContext';
+
 export default function App() {
   // const [game, dispatch] = useReducer(gameReducer, initialGameState);
 

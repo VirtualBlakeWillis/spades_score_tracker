@@ -1,0 +1,56 @@
+.team-round-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.score-and-sandbags-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.score {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sandbags {
+  font-size: 0.875rem;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.tricks-wrapper {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.bid-section,
+.got-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tricks-bid,
+.tricks-got {
+  font-weight: 500;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .team-round-wrapper {
+    border-bottom-color: #333;
+  }
+
+  .sandbags {
+    background-color: #333;
+    color: #fff;
+  }
+} 
